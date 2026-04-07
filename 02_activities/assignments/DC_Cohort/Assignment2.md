@@ -56,7 +56,13 @@ The store wants to keep customer addresses. Propose two architectures for the CU
 **HINT:** search type 1 vs type 2 slowly changing dimensions. 
 
 ```
-Your answer...
+In entity relationship diagram representation, type 1 address management refers to overwrite, meaning only the current address is stored, when the address changes, the old one would be replaced; type 2 address management retains history and preserves the historical address records. 
+
+In a type 1 customer address architecture, the customer table (i.e. a table that stores customers' details such as first name, last name, email, phone no, etc.) and the customer_address table (i.e. a table that maintains the addresses of customers) would have a one-to-one relationship. Whenever the customer updates the address, the customer_address with the corresponding record would be overwritten. In my proposed design, an attribute is dedicated to tracking the address last modified date. When the address is first initiated, this attribute would be the same as the creation date. 
+
+In a type 2 customer address architecture, the customer table and the customer_address table would have a one-to-many relationship. Whenever the customer updates the address, a new record would be created in the customer_address table. For this architecture, I would also recommend to add an attribute called address_increment_no that would count the number of address records created for a customer. For instance, if a customer has modified the address 3 times, the respective increment values would be 1, 2 and 3. When we search addresses for a particular customer, we can very easily determine the number of times the customer has changed address using the increment attribute. This is in addition to the primary key - address_id of the customer_address table that represents each unique record in the table, regardless of customer. Since a new address record is created whenever there is a change or update, only the creation date is tracked here. No modify date is required as in the proposed design for type 1.
+
+I have illustrated both architectures in two separate entity relationship diagrams in the submission.  
 ```
 
 ***
@@ -191,5 +197,9 @@ Consider, for example, concepts of labour, bias, LLM proliferation, moderating c
 
 
 ```
-Your thoughts...
+There is a book recently published called Empire of AI by American journalist and AI researcher, Karen Hao, that takes a deep dive into the dark side and implications of the creation of large training datasets and exploitation of low-cost human annotators in the process. Hao is known for her coverage in artificial intelligence and was the first journalist to cover the story of OpenAI. Because of the rising demand for training data to build large language models (LLMs), the need of labeled data for model training that the article too discussed has been going through the roof. And because of this, increased manpower is required to generate high-quality labeled data. And this can only be accomplished with humans. The book revealed stories of content annotators reportedly asked to label content in the form of videos, text or images filled with violence, sex and coarse language over extended periods. Because of the exposure, some workers began to experience psychological trauma consuming these contents repeatedly. Even though these workers (usually from developing nations) are compensated for the work that they do, the work may have prolonged and unknown negative impact to their mental health. 
+
+It is an irony that to power the sophisticated machines and automate processes to help humans achieve efficiency and a supposedly higher standard of living, there are humans behind the scenes making sacrifices and experiencing the complete opposite (i.e. manual labor, performing sometimes demeaning and repetitive work). 
+
+Beyond the active debates on the labelling workers, there are also concerns on the massive data centers that are being built around the globe to support the computing facilities required to continuously perform model training and support the needs of businesses and individuals now beginning to become dependent on these models in their day-to-day lives. We should all ponder – do we need massive LLMs for everything that we do? If using AI to generate an image actually uses as much power to charge a cellphone to up to 24%, we need to rethink how to leverage these technologies sensibly and responsibly before we do more harm to our planet.  
 ```
